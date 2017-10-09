@@ -73,6 +73,15 @@ TEST(PiezasTest, outOfBounds2)
 	ASSERT_EQ(one, Invalid);
 }
 
+TEST(PiezasTest, outOfBounds3)
+{
+	Piezas game;
+	Piece one;
+	game.dropPiece(3);
+	one = game.dropPiece(4);
+	ASSERT_EQ(one, Invalid);
+}
+
 TEST(PiezasTest, columnFull)
 {
 	Piezas game;
@@ -80,6 +89,18 @@ TEST(PiezasTest, columnFull)
 	game.dropPiece(3);
 	game.dropPiece(3);
 	game.dropPiece(3);
+	one = game.dropPiece(3);
+	ASSERT_EQ(one, Blank);
+}
+
+TEST(PiezasTest, columnFull1)
+{
+	Piezas game;
+	Piece one;
+	game.dropPiece(3);
+	game.dropPiece(3);
+	game.dropPiece(3);
+	game.dropPiece(2);
 	one = game.dropPiece(3);
 	ASSERT_EQ(one, Blank);
 }
@@ -161,19 +182,74 @@ TEST(PiezasTest, tie)
 {
 	Piezas game;
 	Piece one;
+
 	game.dropPiece(0);
 	game.dropPiece(1);
 	game.dropPiece(2);
 	game.dropPiece(3);
+
 	game.dropPiece(0);
 	game.dropPiece(1);
 	game.dropPiece(2);
 	game.dropPiece(3);
+
 	game.dropPiece(0);
 	game.dropPiece(1);
 	game.dropPiece(2);
 	game.dropPiece(3);
+
 	one = game.gameState();
+/*	cout << X << endl;
+	cout << O << endl;
+	cout << Blank << endl;
+	cout << Invalid << endl; */
 	ASSERT_EQ(one, Blank);
 }
 
+TEST(PiezasTest, winnerOH)
+{
+	Piezas game;
+	Piece one;
+
+	game.dropPiece(0);
+	game.dropPiece(1);
+	game.dropPiece(2);
+	game.dropPiece(0);
+
+	game.dropPiece(3);
+	game.dropPiece(1);
+	game.dropPiece(0);
+	game.dropPiece(2);
+
+	game.dropPiece(1);
+	game.dropPiece(3);
+	game.dropPiece(2);
+	game.dropPiece(3);
+
+	one = game.gameState();
+	ASSERT_EQ(one, O);
+}
+
+TEST(PiezasTest, winnerOV)
+{
+	Piezas game;
+	Piece one;
+
+	game.dropPiece(0);
+	game.dropPiece(0);
+	game.dropPiece(1);
+	game.dropPiece(0);
+
+	game.dropPiece(1);
+	game.dropPiece(2);
+	game.dropPiece(1);
+	game.dropPiece(2);
+
+	game.dropPiece(2);
+	game.dropPiece(3);
+	game.dropPiece(3);
+	game.dropPiece(3);
+
+	one = game.gameState();
+	ASSERT_EQ(one, X);
+}

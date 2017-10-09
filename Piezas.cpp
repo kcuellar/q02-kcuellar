@@ -124,13 +124,14 @@ Piece Piezas::gameState()
 
 	// Check horizontals
 	for(int i = 0; i < BOARD_ROWS; i++) {
-		for(int j = 0; j < BOARD_COLS; j++) {
+		adj = 0;
+		for(int j = 1; j < BOARD_COLS; j++) {
 			// sum player with most adjacent pices in row
-			if(board[i][j] == board[i][j+1]) { 
+			if(board[i][j-1] == board[i][j]) { 
 				adj++;
-				if((board[i][j] == X) && (adj > x))
+				if((board[i][j-1] == X) && (adj > x))
 					x = adj;
-				else if((board[i][j] == O) && (adj > o))
+				else if((board[i][j-1] == O) && (adj > o))
 					o = adj;
 			}
 			else { // different piece, restart count
@@ -143,13 +144,14 @@ Piece Piezas::gameState()
 
 	// Check verticals 
 	for(int j = 0; j < BOARD_COLS; j++) {
-		for(int i = 0; i < BOARD_ROWS; i++) {
+		adj = 0;
+		for(int i = 1; i < BOARD_ROWS; i++) {
 			// sum player with most adjacent pices in row
-			if(board[i][j] == board[i+1][j]) { 
+			if(board[i-1][j] == board[i][j]) { 
 				adj++;
-				if((board[i][j] == X) && (adj > x))
+				if((board[i-1][j] == X) && (adj > x))
 					x = adj;
-				else if((board[i][j] == O) && (adj > o))
+				else if((board[i-1][j] == O) && (adj > o))
 					o = adj;
 			}
 			else { // different piece, restart count
